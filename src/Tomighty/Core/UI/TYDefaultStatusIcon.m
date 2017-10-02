@@ -7,7 +7,7 @@
 
 #import "TYDefaultStatusIcon.h"
 
-NSString * const ICON_STATUS_IDLE = @"icon-status-idle";
+NSString * const ICON_STATUS_IDLE = @"icon-status-alternate";
 NSString * const ICON_STATUS_POMODORO = @"icon-status-pomodoro";
 NSString * const ICON_STATUS_SHORT_BREAK = @"icon-status-short-break";
 NSString * const ICON_STATUS_LONG_BREAK = @"icon-status-long-break";
@@ -40,14 +40,30 @@ NSString * const ICON_STATUS_ALTERNATE = @"icon-status-alternate";
     [newStatusItem setImage:[self getIconImage:ICON_STATUS_IDLE]];
     [newStatusItem setAlternateImage:[self getIconImage:ICON_STATUS_ALTERNATE]];
     [newStatusItem setMenu:menu];
-    
+//    [newStatusItem setTitle:@"00:00"];
+
     return newStatusItem;
 }
 
 - (void)changeIcon:(NSString *)iconName
 {
     [statusItem setImage:[self getIconImage:iconName]];
+    if (iconName == ICON_STATUS_IDLE) {
+          [statusItem setTitle:@""];
+    }
 }
+
+- (void)changeTime:(NSString *)stringTime
+{
+    NSDictionary *titleAttributes = [NSDictionary dictionaryWithObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
+    NSAttributedString* colorTitle = [[NSAttributedString alloc] initWithString:stringTime attributes:titleAttributes];
+    
+    if (![stringTime isEqualToString:@"00:00"]){
+//        [statusItem setTitle:stringTime];
+        [statusItem setAttributedTitle:colorTitle];
+    }
+}
+
 
 - (NSImage *)getIconImage:(NSString *)iconName
 {

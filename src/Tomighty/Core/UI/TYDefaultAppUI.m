@@ -69,6 +69,8 @@
     NSString *text = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
 
     [statusMenu setRemainingTimeText:text];
+    
+    [statusIcon changeTime:text];
 }
 
 - (void)updatePomodoroCount:(int)count
